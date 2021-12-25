@@ -17,6 +17,7 @@ def win(card):
 
 def play_bingo(draws, cards):
     num_cards = len(cards)
+    num_won = 0
     for draw in draws:
         to_remove = -1
         won = False
@@ -27,24 +28,16 @@ def play_bingo(draws, cards):
             if draw in card:
                 card[card.index(draw)] = 0
                 if(win(card)):
-                    won = True
+                    
                     cards_to_remove.append(i)
                     #cards = cards[:i] + cards[i + 1:]
-                    if len(cards) - len(cards_to_remove) == 1:
+                    if num_won == num_cards - 1:
                         print(f"Win! draw {draw} card {i}, {card}\nsum of remaining is {sum(card)}, output will be {draw * sum(card)}")
                         return f"Win! draw {draw} card {i}, {card}"
-        if len(cards_to_remove) > 0:
-            print(f"cards to remove: {cards_to_remove}")
-            remaining_cards = cards[:cards_to_remove[0]]
-            if len(cards_to_remove) > 1:
-                for i in range(len(cards_to_remove) - 1):
-                    remaining_cards += cards[cards_to_remove[i] + 1:cards_to_remove[i + 1]]
-                remaining_cards += cards[cards_to_remove[len(cards_to_remove)- 1]:]
-            else:
-                remaining_cards += cards[cards_to_remove[0] + 1:]
-            cards = remaining_cards
-            num_cards = len(cards)
-        print(f"{num_cards} cards remaining")
+                    for j in range(len(card)):
+                        card[j] = -1
+                    num_won += 1
+        print(f"{num_cards - num_won} cards remaining")
 
 previous_was_newline = False
 first_line = True
