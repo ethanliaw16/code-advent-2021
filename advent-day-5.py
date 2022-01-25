@@ -24,15 +24,24 @@ def plot_line(grid, line):
     else:
         slope = (line[1][1] - line[0][1])/(line[1][0] - line[0][0])
         left = []
-        oright = []
+        right = []
         if(line[0][0] < line[1][0]):
             left = line[0]
+            right = line[1]
         else:
             left = line[1]
-        if slope > 1:
-            pass
-        else:
-            pass
+            right = line[0]
+        x = left[0]
+        y = left[1]
+        while(x <= right[0]):
+            grid[x][y] += 1
+            if slope > 0:
+                x += 1
+                y += 1
+            else:
+                x += 1
+                y -= 1
+            
         
 
 max_x = 0
